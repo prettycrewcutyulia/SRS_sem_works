@@ -110,7 +110,9 @@ app.put('/detail/:id', (req, res) => {
 
 // получить все детали
 app.get('/detail', (req, res) => {
-  connection.execute('SELECT * FROM detail_table', (err, results) => {
+  connection.execute(
+    'SELECT detail_table.id, detail_table.description, master_table.name as master_name FROM detail_table, master_table WHERE detail_table.master_id = master_table.id', 
+    (err, results) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -122,7 +124,7 @@ app.get('/detail', (req, res) => {
 // Получить деталь по id
 app.get('/detail/:id', (req, res) => {
   connection.execute(
-    'SELECT * FROM detail_table WHERE id = ?',
+    'SELECT detail_table.id, detail_table.description, master_table.name as master_name FROM detail_table, master_table WHERE detail_table.master_id = master_table.id AND detail_table.id = ?',
     [req.params.id],
     (err, results) => {
       if (err) {
