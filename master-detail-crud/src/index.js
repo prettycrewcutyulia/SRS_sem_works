@@ -20,8 +20,8 @@ connection.connect((err) => {
   console.log('Подключено к базе данных');
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded());
+app.use(express.json()); 
 
 // получить всех
 app.get('/masters', (req, res) => {
@@ -85,7 +85,8 @@ app.delete('/masters/:id', (req, res) => {
 
 // создать деталь
 app.post('/detail', (req, res) => {
-  const {master_id, description} = req.body;
+  const { master_id, description } = req.body;
+  // console.log(master_id, " ");
   connection.query('INSERT INTO detail_table (master_id, description) VALUES (?, ?)', [master_id, description], (err, result) => {
     if (err) {
       res.status(500).json({ error: err.message });
