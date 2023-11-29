@@ -21,12 +21,3 @@ export const get: RequestHandler = async (req, res) => {
     res.status(500).json({ error: 'Ошибка при получении мебели' });
   }
 }
-// export const get: RequestHandler = (req, res, next) => {
-//     const id = req.params.id;
-
-//     res.json({
-//         id,
-//         key: Math.random().toFixed(5),
-//         value: 'HSE rules'
-//     })
-// }
